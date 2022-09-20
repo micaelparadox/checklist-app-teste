@@ -20,9 +20,20 @@ class CakeHermesFeetController extends Controller
             'quantity' => $request->quantity,
         ]);
 
-        $emails = Cake::all()->pluck('email')->toArray();
 
-        Notification::route('mail', $emails)->notify(new CakeAnnouncement($cakeStore));
+
+        // $emails = Cake::all()->pluck('email')->toArray();
+
+        // Notification::route('mail', $emails)->notify(new CakeAnnouncement($cakeStore));
+
+
+        Cake::chunk(10, function ($cakes) use ($cakeStore) {
+
+            $rec = $cakes->pluck('name', 'email');
+
+            Notification::route('mail', $rec)->notify(new CakeAnnouncement($cakeStore));
+        });
+
 
         return response()->json($cakeStore);
     }
