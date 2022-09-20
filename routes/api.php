@@ -24,5 +24,7 @@ Route::get('/cakes/{cake}', 'App\Http\Controllers\Api\CakeController@show');
 Route::put('/cakes/{cake}', 'App\Http\Controllers\Api\CakeController@update');
 Route::delete('/cakes/{cake}', 'App\Http\Controllers\Api\CakeController@destroy');
 
+Route::post('/cakes/hermes-feet', 'App\Http\Controllers\Api\CakeHermesFeetController@store');
+
 
 
