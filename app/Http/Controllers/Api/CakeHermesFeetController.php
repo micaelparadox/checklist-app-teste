@@ -8,6 +8,7 @@ use App\Notifications\CakeAnnouncement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
+
 class CakeHermesFeetController extends Controller
 {
     public function store(Request $request)
@@ -20,12 +21,11 @@ class CakeHermesFeetController extends Controller
             'quantity' => $request->quantity,
         ]);
 
+        //        Notification::route('mail', $cakeStore->email)
+        //            ->notify(new CakeAnnouncement($cakeStore));
 
-
-        // $emails = Cake::all()->pluck('email')->toArray();
-
-        // Notification::route('mail', $emails)->notify(new CakeAnnouncement($cakeStore));
-
+        //         $emails = Cake::all()->pluck('name','email')->toArray();
+        //         Notification::route('mail', $emails)->notify(new CakeAnnouncement($cakeStore));
 
         Cake::chunk(10, function ($cakes) use ($cakeStore) {
 
