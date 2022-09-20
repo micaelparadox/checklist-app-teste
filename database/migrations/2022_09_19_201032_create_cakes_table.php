@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('cakes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('weight');
-            $table->integer('price');
+            $table->string('name')->nullable();
+            $table->integer('weight')->nullable();
+            $table->integer('price')->nullable();
 //            $table->enum('quantity');
-            $table->integer('quantity');
-            $table->string('email');
+            $table->integer('quantity')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
