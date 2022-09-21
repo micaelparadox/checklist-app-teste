@@ -6,24 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Cake extends Model
+class CakeSub extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'cakes';
+    protected $table = 'cake_subs';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name',
-        'weight',
-        'price',
-        'quantity',
-
+        'email',
     ];
 
-    public function cakeSubs()
+
+
+    public function cake()
     {
-        return $this->hasMany(CakeSub::class);
+        return $this->belongsTo(Cake::class);
     }
 }

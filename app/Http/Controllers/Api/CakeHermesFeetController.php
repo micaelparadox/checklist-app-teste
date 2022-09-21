@@ -13,28 +13,48 @@ class CakeHermesFeetController extends Controller
 {
     public function store(Request $request)
     {
-        $cakeStore = Cake::create([
+
+        $data = $request->validate(['email' => ['required', 'email']]);
+
+
+        $cake = Cake::create([
             'name' => $request->name,
-            'email' => $request->email,
             'weight' => $request->weight,
             'price' => $request->price,
             'quantity' => $request->quantity,
+
         ]);
 
-        //        Notification::route('mail', $cakeStore->email)
-        //            ->notify(new CakeAnnouncement($cakeStore));
+        $cake->cakeSubs()->create($data);
 
-        //         $emails = Cake::all()->pluck('name','email')->toArray();
-        //         Notification::route('mail', $emails)->notify(new CakeAnnouncement($cakeStore));
 
-        Cake::chunk(10, function ($cakes) use ($cakeStore) {
+        // dd($cake->cakeSubs);
+        $cake->cakeSubs()->create([
+            'email' => $request->email,
+        ]);
 
-            $rec = $cakes->pluck('name', 'email');
-
-            Notification::route('mail', $rec)->notify(new CakeAnnouncement($cakeStore));
+        $cake->cakeSubs->each(function ($cakeSub) use ($cake) {
+            Notification::route('mail', $cakeSub->email)
+                ->notify(new CakeAnnouncement($cake));
         });
 
+        //notification massive at the same time
 
-        return response()->json($cakeStore);
+
+        // Notification::route('mail', $cake->email)
+        //     ->notify(new CakeAnnouncement($cake));
+
+        // $emails = Cake::all()->pluck('name', 'email')->toArray();
+        // Notification::route('mail', $emails)->notify(new CakeAnnouncement($cake));
+
+        // Cake::chunk(10, function ($cakes) use ($cake) {
+
+        //     $rec = $cakes->pluck('name', 'email');
+
+        //     Notification::route('mail', $rec)->notify(new CakeAnnouncement($cake));
+        // });
+
+
+        return response()->json($cake);
     }
 }
