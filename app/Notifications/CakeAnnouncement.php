@@ -44,10 +44,12 @@ class CakeAnnouncement extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Novo anúncio de bolo')
-            ->line('Um novo anúncio de bolo foi criado.')
+            ->subject('Novo anúncio de bolo :cake:')
+            ->line('Novo anúncio de bolo')
             ->line('Nome: ' . $this->cake->name)
-            ->line('Email: ' . $this->cake->email);
+            ->line('Peso: ' . $this->cake->weight)
+            ->line('Preço: ' . $this->cake->price)
+            ->line('Quantidade: ' . $this->cake->quantity);
     }
 
     /**
